@@ -10,6 +10,12 @@
 
 static double exif_convert_latlon(char *s);
 
+/*
+ * NAME: Exif
+ * PURPOSE: Constructor of the Exif class
+ * ARGUMENTS: pn: pathname of an image file
+ * RETURNS: Nothing
+ */
 Exif::Exif(QString pn)
 {
     pathname = pn;
@@ -20,12 +26,33 @@ Exif::Exif(QString pn)
     orientation = -1;
 }
 
+/*
+ * NAME: ~Exif
+ * PURPOSE: Destructor of the Exif class
+ * AGUMENTS: None
+ * RETURNS: Nothing
+ * NOTE: All this destructor does is free the exif data
+ */
 Exif::~Exif()
 {
     if (ed != NULL)
         exif_data_free(ed);
 }
 
+/*
+ * NAME Orientation
+ * PURPOSE: Access method of the image orientation
+ * ARGUMENTS: None, provided through the object
+ * RETURNS: String describing the image orientation:
+ *	"Top-left": "normal"
+ *	"Top-right"
+ *	"Bottom-right"
+ *	"Bottom-left"
+ *	"Left-top"
+ *	"Right-top": rotated left 90°
+ *	"Right-bottom"
+ *	"Left-bottom": rotated right 90°
+ */
 QString
 Exif::Orientation()
 {
@@ -44,6 +71,12 @@ Exif::Orientation()
     return QString("");
 }
 
+/*
+ * NAME: Longitude
+ * PURPOSE: To get an image's GPS longitude
+ * ARGUMENTS: None, provided through the object
+ * RETURNS: Longitude from the image's GPS data or 0.0
+ */
 double
 Exif::Longitude()
 {
@@ -68,6 +101,12 @@ Exif::Longitude()
     return longitude;
 }
 
+/*
+ * NAME: Latitude
+ * PURPOSE: To get an image's GPS latitude
+ * ARGUMENTS: None, provided through the object
+ * RETURNS: Latitude from the image's GPS data or 0.0
+ */
 double
 Exif::Latitude()
 {
@@ -92,6 +131,12 @@ Exif::Latitude()
     return latitude;
 }
 
+/*
+ * NAME: Date
+ * PURPOSE: To get an image's "original" date
+ * ARGUMENTS: None, provided through the object
+ * RETURNS: String containing day.month.year
+ */
 QString
 Exif::Date()
 {
@@ -123,6 +168,13 @@ Exif::Date()
     return date;
 }
 
+/*
+ * NAME: SaveThumbnail
+ * PURPOSE: To save an image's thumbnail
+ * ARGUMENTS: directory: Name of directory (eg ".thumbnails")
+ *	filename: filename for thumbnail (eg same as image)
+ * RETURNS: Nothing
+ */
 void
 Exif::SaveThumbnail(QString directory, QString filename)
 {
@@ -159,6 +211,12 @@ Exif::SaveThumbnail(QString directory, QString filename)
     }
 }
 
+/*
+ * NAME: load_exif_data
+ * PURPOSE: To load an image's Exif data into memory
+ * ARGUMENTS: None, provided through the object
+ * RETURNS: A pointer to the ExifData
+ */
 ExifData *
 Exif::load_exif_data()
 {

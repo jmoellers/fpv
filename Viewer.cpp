@@ -8,6 +8,14 @@ extern void update_index(float resolver_delay, unsigned int maxrequests);
 extern float resolver_delay;
 extern QMap<QString,QString> *locationmap;
 
+/*
+ * NAME: Viewer
+ * PURPOSE: Constructor of the Viewer class
+ * ARGUMENTS: names: QStringlist of file names
+ *	locationmap: QMap<QString,QString> mapping file names to locations (street, place, ...)
+ *	new_settings: QSettings for this program
+ * RETURNS: Nothing
+ */
 Viewer::Viewer(QStringList names, QMap<QString,QString> *locationmap, QSettings *new_settings)
 {
     // qDebug() << "new_settings->directory" << new_settings->value("directory", ".").toString();
@@ -23,10 +31,23 @@ Viewer::Viewer(QStringList names, QMap<QString,QString> *locationmap, QSettings 
     setLayout(mainLayout);
 }
 
+/*
+ * NAME: ~Viewer
+ * PURPOSE: Desctructor of the Viewer class
+ * ARGUMENTS: None
+ * RETURNS: Nothing
+ * NOTE: This destructor does nothing
+ */
 Viewer::~Viewer()
 {
 }
 
+/*
+ * NAME: createMenu
+ * PURPOSE: To create the menu bar of this program
+ * ARGUMENTS: None
+ * RETURNS: Nothing
+ */
 void
 Viewer::createMenu()
 {
@@ -41,6 +62,13 @@ Viewer::createMenu()
     connect(openAction, SIGNAL(triggered()), this, SLOT(openDir()));
 }
 
+/*
+ * NAME: createBox
+ * PURPOSE: To create the main window displaying the locations/thumbnails
+ * ARGUMENTS: names: QStringlist of file names
+ *	locationmap: QMap<QString,QString> mapping file names to locations (street, place, ...)
+ * RETURNS: Nothing
+ */
 void
 Viewer::createBox(QStringList names, QMap<QString,QString> *locationmap)
 {
@@ -132,6 +160,13 @@ Viewer::createBox(QStringList names, QMap<QString,QString> *locationmap)
     groupbox->setLayout(layout);
 }
 
+/*
+ * NAME: openDir
+ * PURPOSE: To open (ie change into) a different directory
+ * ARGUMENTS: None
+ * RETURNS: Nothing
+ * NOTE: The new directory path name is obtained through a QFileDialog
+ */
 void
 Viewer::openDir()
 {
